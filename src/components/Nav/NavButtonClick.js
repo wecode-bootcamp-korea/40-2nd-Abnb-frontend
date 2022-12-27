@@ -3,8 +3,8 @@ import styled from 'styled-components/macro';
 import Search from '../../assets/nav/돋보기.png';
 import TravelSelectModal from './TravelSelectModal';
 import CheckInModal from './CheckInModal';
-import CheckOutModal from './CheckOutModal';
 import PersonnalModal from './PersonnalModal';
+import { getDateFormat } from '../../utils/format';
 
 const NavButtonClick = ({ setOpenModal }) => {
   const [dataForm, setDataForm] = useState({
@@ -13,9 +13,19 @@ const NavButtonClick = ({ setOpenModal }) => {
     checkOut: '',
     count: 1,
   });
+
   const [opened, setOpened] = useState(null);
+
+  const [startDate, setStartDate] = useState(new Date());
+
+  const [endDate, setEndDate] = useState(new Date());
+
   const ButtonRef = useRef();
 
+  // const handleCheckIn = e => {
+  //   const { name, value } = e.target;
+  //   setDataForm({ ...dataForm, [name]: value });
+  // };
   const countPlus = () => {
     setDataForm({ ...dataForm, count: dataForm.count + 1 });
   };
@@ -42,6 +52,13 @@ const NavButtonClick = ({ setOpenModal }) => {
     setDataForm({ ...dataForm, area: city });
   };
 
+  const handleCheckIn = checkIn => {
+    setDataForm({ ...dataForm, checkIn: checkIn });
+  };
+
+  const handleCheckOut = checkOut => {
+    setDataForm({ ...dataForm, checkOut: checkOut });
+  };
   return (
     <NavButtonArea ref={ButtonRef}>
       <SearchBar>
@@ -63,18 +80,26 @@ const NavButtonClick = ({ setOpenModal }) => {
           }}
           className={opened === 'checkin' ? 'is-active' : 'un-active'}
         >
-          체크인
+          <SpanCheckIn>
+            체크인
+            <br />
+            {getDateFormat(startDate)}
+          </SpanCheckIn>
+          <SpanCheckOut>
+            체크아웃
+            <br />
+            {endDate && getDateFormat(endDate)}
+          </SpanCheckOut>
         </CheckIn>
-        {opened === 'checkin' && <CheckInModal />}
-        <CheckOut
-          onClick={() => {
-            setOpened(opened === 'checkout' ? null : 'checkout');
-          }}
-          className={opened === 'checkout' ? 'is-active' : 'un-active'}
-        >
-          체크아웃
-        </CheckOut>
-        {opened === 'checkout' && <CheckOutModal />}
+        {opened === 'checkin' && (
+          <CheckInModal
+            startDate={startDate}
+            handleCheckIn={handleCheckIn}
+            setStartDate={setStartDate}
+            endDate={endDate}
+            setEndDate={setEndDate}
+          />
+        )}
         <Personnal
           onClick={() => {
             setOpened(opened === 'personnal' ? null : 'personnal');
@@ -148,30 +173,19 @@ const CheckIn = styled.div`
     background-color: none;
   }
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  width: 120px;
+  width: 400px;
   border-radius: 20px;
+
   &:hover {
     background-color: white;
   }
 `;
 
-const CheckOut = styled.div`
-  &.is-active {
-    background-color: white;
-  }
-  &.un-active {
-    background-color: none;
-  }
+const SpanCheckIn = styled.div`
   display: flex;
   justify-content: center;
-  align-items: center;
-  width: 120px;
-  border-radius: 20px;
-  &:hover {
-    background-color: white;
-  }
 `;
 const Personnal = styled.div`
   &.is-active {
@@ -188,6 +202,11 @@ const Personnal = styled.div`
   &:hover {
     background-color: white;
   }
+`;
+
+const SpanCheckOut = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const ButtonRadious = styled.div`

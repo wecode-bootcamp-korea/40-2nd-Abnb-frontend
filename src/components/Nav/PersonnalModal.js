@@ -30,7 +30,7 @@ const PersonnalModalArea = styled.div`
   width: 300px;
   height: 70px;
   border-radius: 20px;
-  left: 980px;
+  left: 1080px;
 `;
 
 const Header = styled.div`

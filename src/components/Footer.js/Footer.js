@@ -48,6 +48,7 @@ const FooterContainer = styled.div`
   border: 1px solid #dcdddd;
   bottom: 0;
   position: fixed;
+  z-index: 1;
 `;
 
 const InfoBox = styled.div`

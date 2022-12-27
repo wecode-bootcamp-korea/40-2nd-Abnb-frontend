@@ -1,9 +1,9 @@
 import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-export const APIKEY = process.env.REACT_APP_API_KEY;
+export const API_KEY = process.env.REACT_APP_API_KEY;
 export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${APIKEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const LoginModal = ({ setIsOpen }) => {
   const close = useRef();
@@ -32,8 +32,11 @@ const LoginModal = ({ setIsOpen }) => {
       </LoginHeader>
       <LoginBody>
         <LoginWelcome>
-          <div>Abnb</div>
-          <span>에어비앤비에 오신 것을 환영합니다.</span>
+          <LoginTitle>
+            <img alt="에어비앤비 로고" src="/images/a-bnb-logo.png" />
+            <div>Abnb</div>
+          </LoginTitle>
+          <span>에이비앤비에 오신 것을 환영합니다.</span>
         </LoginWelcome>
         <LoginButton href={KAKAO_AUTH_URL}>
           <img alt="로그인" src="/images/kakao.png" />
@@ -83,15 +86,15 @@ const LoginHeader = styled.div`
   }
 `;
 const LoginGuideText = styled.div`
-  margin-top: 10px;
+  margin: 10px 0;
   font-size: 14px;
   color: #717171;
+  line-height: 15px;
 `;
 const LoginBody = styled.div`
   width: 500px;
-  height: 250px;
-  padding: 24px;
-  margin-bottom: 10px;
+  height: fit-content;
+  padding: 30px 40px;
   border-top: 1px solid #eaeaea;
 `;
 const LoginWelcome = styled.h3`
@@ -103,11 +106,22 @@ const LoginWelcome = styled.h3`
     font-size: 16px;
   }
 `;
+const LoginTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  color: #ff395c;
+
+  img {
+    width: 50px;
+    height: 50px;
+  }
+`;
 
 const LoginButton = styled.a`
   img {
-    width: 450px;
-    height: 60px;
+    width: 100%;
     object-fit: cover;
     margin: 25px auto;
     display: flex;

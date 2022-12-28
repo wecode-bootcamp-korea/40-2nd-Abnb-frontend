@@ -2,12 +2,11 @@ import React, { useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 export const API_KEY = process.env.REACT_APP_API_KEY;
-export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URL;
+export const REDIRECT_URI = process.env.REACT_APP_REDIRECT_URI;
 export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${API_KEY}&redirect_uri=${REDIRECT_URI}&response_type=code`;
 
 const LoginModal = ({ setIsOpen }) => {
   const close = useRef();
-
   const modalHandler = () => {
     setIsOpen(prev => !prev);
   };

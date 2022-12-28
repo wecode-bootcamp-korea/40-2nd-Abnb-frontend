@@ -99,7 +99,7 @@ const CardCarouselContainer = styled.div`
 
 const CarouselPrevButton = styled.button`
   box-shadow: 0 0 20px 0 gray;
-  z-index: 111;
+  z-index: 1;
   width: 30px;
   height: 30px;
   border: none;
@@ -116,7 +116,7 @@ const CarouselPrevButton = styled.button`
 
 const CarouselNextButton = styled.button`
   box-shadow: 0 0 20px 0 gray;
-  z-index: 111;
+  z-index: 1;
   width: 30px;
   height: 30px;
   border: none;

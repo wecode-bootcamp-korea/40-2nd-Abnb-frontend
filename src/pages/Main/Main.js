@@ -1,6 +1,8 @@
 import Card from 'components/Card/Card';
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import MainSelect from './MainSelect';
+import MainList from './MainList';
 
 const Main = () => {
   const [roomList, setRoomList] = useState([]);
@@ -24,6 +26,7 @@ const Main = () => {
 
   return (
     <>
+      <MainSelect />
       <ProductListContainer>
         <ProductListBox>
           {roomList.map(data => (

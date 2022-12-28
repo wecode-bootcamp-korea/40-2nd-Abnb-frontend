@@ -17,9 +17,9 @@ const LoginModal = ({ setIsOpen }) => {
         setIsOpen(false);
       }
     };
-    document.addEventListener('mousedown', handler);
+    document.addEventListener('click', handler);
 
-    return () => document.removeEventListener('mousedown', handler);
+    return () => document.removeEventListener('click', handler);
   });
 
   return (

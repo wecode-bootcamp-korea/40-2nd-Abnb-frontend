@@ -6,6 +6,7 @@ import Main from './pages/Main/Main';
 import ProductList from './pages/ProductList/ProductList';
 import Nav from './components/Nav/Nav';
 import Test from 'components/Card/Test';
+import Footer from 'components/Footer.js/Footer';
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/oauth/kakao/callback" element={<KakaoLogin />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

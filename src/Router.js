@@ -4,9 +4,8 @@ import LoginModal from './pages/LoginModal/LoginModal';
 import Main from './pages/Main/Main';
 import ProductList from './pages/ProductList/ProductList';
 import Nav from './components/Nav/Nav';
-import Main from 'pages/Main/Main';
-import ProductList from 'pages/ProductList/ProductList';
 import Test from 'components/Card/Test';
+import Footer from 'components/Footer.js/Footer';
 
 const Router = () => {
   return (
@@ -18,6 +17,7 @@ const Router = () => {
         <Route path="/login" element={<LoginModal />} />
         <Route path="/test" element={<Test />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 };

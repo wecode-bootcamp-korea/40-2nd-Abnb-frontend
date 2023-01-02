@@ -4,21 +4,17 @@ import Calender from './Calender';
 import CalenderModal from './CalenderModal';
 import Modal from './Modal';
 import { getDateFormat } from '../../utils/format';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { addDays, subDays } from 'date-fns';
+
 const { kakao } = window;
 
 const Detail = () => {
-  const productId = useParams();
+  const listId = useParams();
   const date = new Date();
 
   const mapRef = useRef(null);
-  // const [formData, setFormData] = useState({
-  //   start: new Date(),
-  //   end: new Date(),
-  // });
-  // setFormData({...formData, start: '바꾼 내용'})
-  // const [isOpenPrice, setIsOpenPrice] = useState(false);
+
   const [startDate, setStartDate] = useState(date);
   const [endDate, setEndDate] = useState(date);
 
@@ -29,6 +25,8 @@ const Detail = () => {
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
   const [detailData, setDetailData] = useState({});
+
+  const navigate = useNavigate();
 
   const realEnd = endDate < startDate ? startDate : endDate;
   const getDay = (realEnd - startDate) / (1000 * 60 * 60 * 24) + 1;
@@ -49,10 +47,10 @@ const Detail = () => {
   const onClickDecreaseBtn = () => setCount(prev => prev - 1);
   const onClickIncreaseBtn = () => setCount(prev => prev + 1);
 
-  //TODO: `http://10.58.52.106:8000/products/${listId.id}`
+  // TODO:`http://10.58.52.227:8000/products/${listId.id}`
 
   useEffect(() => {
-    fetch('/data/Detail.json')
+    fetch('./data/detail.json')
       .then(response => response.json())
       .then(result => {
         setDetailData(result[0]);
@@ -81,7 +79,6 @@ const Detail = () => {
   if (loading) return;
 
   //TODO: 백이랑 통신
-
   // const onClick = () => {
   //   fetch('http://10.58.52.227:8000/products/booking', {
   //     method: 'POST',
@@ -98,6 +95,11 @@ const Detail = () => {
   //     }),
   //   });
   // };
+
+  const done = () => {
+    alert('완료');
+    navigate('/');
+  };
 
   const onChange = dates => {
     const [start, end] = dates;
@@ -253,7 +255,14 @@ const Detail = () => {
                   성인 {count}
                   <ButtonMin onClick={onClickIncreaseBtn}>+</ButtonMin>
                 </AdultButton>
-                <Reservation>예약하기</Reservation>
+                <Reservation
+                // onClick={() => {
+                //   onClick();
+                //   done();
+                // }}
+                >
+                  예약하기
+                </Reservation>
               </CheckBox>
               <PriceBox>
                 {!isDefult && (
@@ -368,7 +377,7 @@ const CalenderBox = styled.div`
   padding: 30px 10px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid #717171;
+  border-bottom: 1px solid #b0b0b0;
   padding-top: 10px;
 `;
 
@@ -389,7 +398,7 @@ const DateHostBox = styled.div`
   height: 110px;
   line-height: 50px;
   padding-left: 5px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b0b0b0;
   padding-top: 10px;
   color: inherit;
   font-size: 30px;
@@ -439,7 +448,7 @@ const LocationBox = styled.div`
   font-size: 16px;
   padding-left: 5px;
   line-height: 30px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b0b0b0;
 `;
 
 const SinceText = styled.div`
@@ -452,7 +461,7 @@ const AirCoverBox = styled.div`
   padding-left: 5px;
   font-size: 30px;
   line-height: 50px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b0b0b0;
   font-weight: bold;
   margin-bottom: 10px;
 
@@ -480,7 +489,7 @@ const LineTextBox = styled.div`
   padding-left: 5px;
   line-height: 60px;
   margin-top: 10px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid #b0b0b0;
 `;
 
 const MapBox = styled.div`
@@ -511,7 +520,7 @@ const LocactionMapBox = styled.div`
 const PayBox = styled.div`
   width: 25%;
   height: 400px;
-  border: 1px solid black;
+  border: 1px solid #b0b0b0;
   border-radius: 10px;
   position: sticky;
   top: 99px;
@@ -595,7 +604,7 @@ const CheckOutBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid #b0b0b0;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 `;
@@ -608,7 +617,7 @@ const DateSpan = styled.div`
 const AdultButton = styled.div`
   width: 100%;
   height: 4vw;
-  border: 1px solid black;
+  border: 1px solid #b0b0b0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -636,7 +645,7 @@ const Reservation = styled.div`
 const PriceBox = styled.div`
   width: 100%;
   margin-top: 60px;
-  border-top: 1px solid black;
+  border-top: 1px solid #b0b0b0;
 `;
 
 const TotalPrice = styled.div`

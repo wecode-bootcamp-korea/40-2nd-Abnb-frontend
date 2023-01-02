@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { API_KEY, REDIRECT_URI } from './LoginModal';
 
-export const BASE_URL = `http://10.58.52.106:8000/users/login`;
+export const BASE_URL = `http://10.58.52.227:8000/users/login`;
 
 const KakaoLogin = () => {
   const [searchParams] = useSearchParams();
@@ -32,6 +32,7 @@ const KakaoLogin = () => {
     if (!accessToken) alert('로그인 실패');
 
     localStorage.setItem('token', accessToken);
+
     navigate('/');
   };
 

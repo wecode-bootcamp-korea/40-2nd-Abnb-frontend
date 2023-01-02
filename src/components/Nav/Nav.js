@@ -21,7 +21,7 @@ const Nav = () => {
     <NavBar isButtonModal={isButtonModal}>
       <NavFlex>
         <RightLogo src={Logo} />
-        <NavLogo>A-bnb</NavLogo>
+        <NavLogo>Abnb</NavLogo>
       </NavFlex>
 
       <NavButton
@@ -54,12 +54,13 @@ const NavFlex = styled.div`
   display: flex;
   align-items: center;
   cursor: pointer;
+  margin-left: 30px;
 `;
 
 const RightLogo = styled.img`
   width: 50px;
   height: 50px;
-  color: pink;
+  color: #ff385c;
 `;
 
 const NavBar = styled.div`
@@ -67,7 +68,7 @@ const NavBar = styled.div`
   justify-content: space-between;
   position: fixed;
   top: 0;
-  padding: 20px;
+  padding: 20px 100px;
   width: 100%;
   border-bottom: 1px solid #d3d3d3;
   z-index: 6;
@@ -80,12 +81,13 @@ const NavLogo = styled.h1`
   font-weight: bold;
   color: pink;
   font-size: 20px;
+  color: #ff385c;
 `;
 const NavRight = styled.div`
   display: flex;
   align-items: center;
   width: 300px;
-  margin-right: 70px;
+  margin-right: 42px;
 `;
 
 const RightFont = styled.div`

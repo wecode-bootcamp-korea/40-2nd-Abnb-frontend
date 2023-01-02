@@ -60,6 +60,6 @@ const ButtonRadious = styled.div`
   border-radius: 100%;
   width: 40px;
   height: 40px;
-  background-color: pink;
+  background-color: #ff385c;
   border: none;
 `;

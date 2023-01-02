@@ -231,6 +231,7 @@ const ButtonRadious = styled.div`
   height: 50px;
   background-color: pink;
   border: none;
+  background-color: #ff385c;
 `;
 
 const ButtonIcon = styled.img`

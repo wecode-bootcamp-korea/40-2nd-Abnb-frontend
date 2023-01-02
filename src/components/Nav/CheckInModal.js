@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Calender from 'pages/Detail/Calender';
+import { addDays, subDays } from 'date-fns';
 
 const CheckInModal = ({
   reservations,

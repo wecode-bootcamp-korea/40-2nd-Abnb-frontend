@@ -3,13 +3,7 @@ import Calender from './Calender';
 import { getDateFormat } from '../../utils/format';
 import styled from 'styled-components';
 
-const CalenderModal = ({
-  setIsModal,
-  reservations,
-  startDate,
-  endDate,
-  onChange,
-}) => {
+const CalenderModal = ({ setIsModal, startDate, endDate, onChange }) => {
   const ref = useRef();
 
   useEffect(() => {

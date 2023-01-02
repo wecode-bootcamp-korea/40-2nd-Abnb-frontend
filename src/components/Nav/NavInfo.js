@@ -56,7 +56,7 @@ const NavInfor = styled.div`
   right: 90px;
   top: 67px;
   width: 200px;
-  height: 150px;
+  height: 100px;
   background-color: white;
   border-radius: 20px;
   border: 1px solid #d3d3d3;

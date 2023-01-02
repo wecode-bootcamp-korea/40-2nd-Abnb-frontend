@@ -1,16 +1,13 @@
 import React from 'react';
 import DatePicker from 'react-datepicker';
-import { addDays } from 'date-fns';
-import { subDays } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import styled, { createGlobalStyle } from 'styled-components';
 import 'react-datepicker/dist/react-datepicker.css';
 
-const Calender = ({ startDate, onChange, endDate }) => {
+const Calender = ({ range, startDate, onChange, endDate }) => {
   return (
     <DateContainer>
       <DatePicker
-        // onKeyDown={onKeyDown}
         locale={ko}
         selected={startDate}
         onChange={onChange}
@@ -23,13 +20,7 @@ const Calender = ({ startDate, onChange, endDate }) => {
         dateFormat="yyyy-MM-dd"
         inline
         wrapperClassName="react-datepicker__header react-datepicker__day"
-        // excludeDates={[
-        //   addDays(new Date(2023 / 1 / 3), 1),
-        //   addDays(new Date(), 6),
-        // ]}
-        excludeDateIntervals={[
-          { start: subDays(new Date(), 5), end: addDays(new Date(), 5) },
-        ]}
+        excludeDateIntervals={range && [range]}
       />
       <DatePickerWrapperStyles />
     </DateContainer>

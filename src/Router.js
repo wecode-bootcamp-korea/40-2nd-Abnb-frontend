@@ -20,6 +20,7 @@ const Router = () => {
         <Route path="/test" element={<Test />} />
         <Route path="/oauth/kakao/callback" element={<KakaoLogin />} />
         <Route path="/detail" element={<Detail />} />
+        <Route path="/list/:id" element={<Detail />} />
       </Routes>
       <Footer />
     </BrowserRouter>

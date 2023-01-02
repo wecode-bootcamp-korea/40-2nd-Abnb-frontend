@@ -4,9 +4,12 @@ import Calender from './Calender';
 import CalenderModal from './CalenderModal';
 import Modal from './Modal';
 import { getDateFormat } from '../../utils/format';
+import { useParams } from 'react-router-dom';
+import { addDays, subDays } from 'date-fns';
 const { kakao } = window;
 
 const Detail = () => {
+  const productId = useParams();
   const date = new Date();
 
   const mapRef = useRef(null);
@@ -46,6 +49,8 @@ const Detail = () => {
   const onClickDecreaseBtn = () => setCount(prev => prev - 1);
   const onClickIncreaseBtn = () => setCount(prev => prev + 1);
 
+  //TODO: `http://10.58.52.106:8000/products/${listId.id}`
+
   useEffect(() => {
     fetch('/data/Detail.json')
       .then(response => response.json())
@@ -53,7 +58,7 @@ const Detail = () => {
         setDetailData(result[0]);
         setLoading(false);
       });
-  }, []);
+  }, [productId]);
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -75,14 +80,16 @@ const Detail = () => {
 
   if (loading) return;
 
+  //TODO: 백이랑 통신
+
   // const onClick = () => {
-  //   fetch(`${API}`, {
+  //   fetch(`${API}/product/booking`, {
   //     method: 'post',
   //     headers: {
   //       'Content-Type': 'application/json',
   //       Authorization: window.localStorage.getItem('TOKEN'),
   //     },
-  //     body: JSON.stringify({ ''}),
+  //     body: JSON.stringify({productId: id , guestNumber:guestNumber ,checkIn: checkIn , checkOut:checkOut, totalPrice:totalPrice}),
   //   })
   //   .then(response => {
   //     return response.json();
@@ -112,17 +119,17 @@ const Detail = () => {
         <PictureBox key={detailData.id}>
           <LeftPicture
             key={detailData.id}
-            src={detailData.images[0]}
+            src={detailData.image_url[0]}
             alt="img"
           />
           <RightBox>
             <MiniBottomBox>
-              <RightBoxMini src={detailData.images[1]} alt="img" />
-              <RightBoxRight src={detailData.images[2]} alt="img" />
+              <RightBoxMini src={detailData.image_url[1]} alt="img" />
+              <RightBoxRight src={detailData.image_url[2]} alt="img" />
             </MiniBottomBox>
             <MiniTopBox>
-              <BottomRightBox src={detailData.images[3]} alt="img" />
-              <BottomDownBox src={detailData.images[4]} alt="img" />
+              <BottomRightBox src={detailData.image_url[3]} alt="img" />
+              <BottomDownBox src={detailData.image_url[4]} alt="img" />
             </MiniTopBox>
           </RightBox>
         </PictureBox>
@@ -130,9 +137,10 @@ const Detail = () => {
         <CalenderBox>
           <DateBox>
             <DateHostBox>
-              {detailData.product2}
+              {detailData.name} 님의 저택 전체
               <HostPeople>
-                최대인원 {detailData.people}명 . 침실{detailData.bedroom} . 침대
+                최대인원 {detailData.maximum_guest}명 . 침실{detailData.bedroom}
+                . 침대
                 {detailData.bed} . 욕실{detailData.bathroom}
               </HostPeople>
             </DateHostBox>
@@ -173,19 +181,17 @@ const Detail = () => {
               </button>
               {isOpen ? <Modal setIsOpen={setIsOpen} /> : null}
             </AirCoverBox>
-            <LineTextBox>
-              {detailData.description}
-              <HouseText>
-                {detailData.text1}
-                <JapanText>{detailData.text2}</JapanText>
-              </HouseText>
-            </LineTextBox>
+            <LineTextBox>{detailData.description}</LineTextBox>
 
             <Calender
               reservations={[]}
               startDate={startDate}
               onChange={onChange}
               endDate={endDate}
+              range={{
+                start: subDays(new Date(), 5),
+                end: addDays(new Date(), 5),
+              }}
             />
             <DelateButton onClick={deleteDate}>날짜 지우기</DelateButton>
           </DateBox>
@@ -200,7 +206,9 @@ const Detail = () => {
                       입력하세요
                     </NonePrice>
                   ) : (
-                    <Price>₩{detailData.price}/박</Price>
+                    <Price>
+                      ₩{Math.floor(detailData.price).toLocaleString()}/박
+                    </Price>
                   )}
                 </CheckInBox>
 
@@ -231,6 +239,12 @@ const Detail = () => {
                     onChange={onChange}
                     reservations={[]}
                     name="name"
+                    range={[
+                      {
+                        start: subDays(new Date(), 5),
+                        end: addDays(new Date(), 5),
+                      },
+                    ]}
                   />
                 )}
                 <AdultButton>
@@ -265,9 +279,8 @@ const Detail = () => {
 export default Detail;
 
 const FlexBox = styled.div`
-  width: 100%;
-  padding: 90px;
-  /* margin: 90px 0; */
+  width: 99%;
+  padding: 130px 130px 30px 130px;
 `;
 
 const TitleBox = styled.div`
@@ -297,7 +310,6 @@ const ShareText = styled.div`
 const PictureBox = styled.div`
   width: 100%;
   height: 450px;
-  /* padding: 10px; */
   display: flex;
   justify-content: space-between;
 `;
@@ -352,7 +364,7 @@ const BottomDownBox = styled.img`
 
 const CalenderBox = styled.div`
   width: 100%;
-  padding: 10px;
+  padding: 30px 10px;
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #717171;
@@ -369,7 +381,6 @@ const DelateButton = styled.div`
 
 const DateBox = styled.div`
   width: 70%;
-  /* height: 90vw; */
 `;
 
 const DateHostBox = styled.div`
@@ -437,7 +448,6 @@ const SinceText = styled.div`
 
 const AirCoverBox = styled.div`
   width: 100%;
-  /* height: 10vw; */
   padding-left: 5px;
   font-size: 30px;
   line-height: 50px;
@@ -467,25 +477,16 @@ const LineTextBox = styled.div`
   width: 100%;
   font-size: 20px;
   padding-left: 5px;
-  line-height: 40px;
+  line-height: 60px;
   margin-top: 10px;
   border-bottom: 1px solid black;
-`;
-
-const HouseText = styled.div`
-  margin-top: 10px;
-  font-size: 18px;
-`;
-
-const JapanText = styled.div`
-  margin-top: 10px;
-  font-size: 18px;
 `;
 
 const MapBox = styled.div`
   width: 89%;
   height: 700px;
-  margin-left: 100px;
+  margin-left: 130px;
+  flex-direction: column;
 `;
 
 const MapDetail = styled.div`
@@ -500,9 +501,10 @@ const SpanHost = styled.div`
 `;
 
 const LocactionMapBox = styled.div`
-  width: 100%;
+  width: 93%;
   height: 500px;
-  /* padding: 20px; */
+  display: flex;
+  justify-content: center;
 `;
 
 const PayBox = styled.div`
@@ -531,6 +533,7 @@ const CheckInBox = styled.div`
   width: 90%;
   height: 3vw;
   font-size: 20px;
+  margin-bottom: 10px;
 `;
 
 const CheckIn = styled.div`

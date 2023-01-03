@@ -2,18 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import Search from '../../assets/nav/돋보기.png';
 import NavButtonClick from './NavButtonClick';
-const NavButton = ({ isButtonModal, setIsButtonModal }) => {
+
+const NavButton = ({ isButtonModal, onOpen, onClose }) => {
   return (
     <NaviButton
       className={isButtonModal ? 'is-active' : ''}
       onClick={e => {
         e.stopPropagation();
-        setIsButtonModal(true);
+        onOpen();
       }}
     >
-      {isButtonModal === true ? (
-        <NavButtonClick setOpenModal={setIsButtonModal} />
-      ) : null}
+      {isButtonModal ? <NavButtonClick closeModal={onClose} /> : null}
       {isButtonModal ? <span>숙소찾기</span> : '어디든지 | 언제든 일주일'}
       <ButtonRadious className={isButtonModal ? 'is-active' : ''}>
         <ButtonIcon src={Search} />

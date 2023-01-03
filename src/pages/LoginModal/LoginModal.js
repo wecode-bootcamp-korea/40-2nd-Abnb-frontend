@@ -62,12 +62,12 @@ const LoginContainer = styled.div`
   width: fit-content;
   display: flex;
   flex-direction: column;
-  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.3);
   background-color: #ffffff;
 `;
 
 const LoginHeader = styled.div`
-  width: 500px;
+  width: 450px;
   height: 60px;
   display: flex;
   justify-content: space-between;
@@ -86,12 +86,12 @@ const LoginHeader = styled.div`
 `;
 const LoginGuideText = styled.div`
   margin: 10px 0;
-  font-size: 14px;
+  font-size: 12px;
   color: #717171;
   line-height: 15px;
 `;
 const LoginBody = styled.div`
-  width: 500px;
+  width: 450px;
   height: fit-content;
   padding: 30px 40px;
   border-top: 1px solid #eaeaea;

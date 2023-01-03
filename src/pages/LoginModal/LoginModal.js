@@ -26,7 +26,7 @@ const LoginModal = ({ setIsOpen }) => {
     <LoginContainer ref={close}>
       <LoginHeader>
         <button onClick={modalHandler}>✕</button>
-        <div>로그인 또는 회원 가입</div>
+        <div onClick={modalHandler}>로그인 또는 회원 가입</div>
         <div />
       </LoginHeader>
       <LoginBody>

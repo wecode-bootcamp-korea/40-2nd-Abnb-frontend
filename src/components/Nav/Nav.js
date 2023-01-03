@@ -10,6 +10,13 @@ const Nav = () => {
   const [isModal, setIsModal] = useState(false);
   const [isButtonModal, setIsButtonModal] = useState(false);
 
+  const onOpen = () => {
+    setIsButtonModal(true);
+  };
+  const closeModal = () => {
+    setIsButtonModal(false);
+  };
+
   return (
     <NavBar isButtonModal={isButtonModal}>
       <NavFlex>
@@ -19,7 +26,8 @@ const Nav = () => {
 
       <NavButton
         isButtonModal={isButtonModal}
-        setIsButtonModal={setIsButtonModal}
+        onOpen={onOpen}
+        onClose={closeModal}
       />
 
       <NavRight>

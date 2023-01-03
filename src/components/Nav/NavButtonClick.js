@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import Search from '../../assets/nav/돋보기.png';
 import TravelSelectModal from './TravelSelectModal';
@@ -6,11 +7,9 @@ import CheckInModal from './CheckInModal';
 import PersonnalModal from './PersonnalModal';
 import { getDateFormat } from '../../utils/format';
 
-const NavButtonClick = ({ setOpenModal }) => {
+const NavButtonClick = ({ closeModal }) => {
   const [dataForm, setDataForm] = useState({
     area: '',
-    checkIn: '',
-    checkOut: '',
     count: 1,
   });
 
@@ -22,10 +21,12 @@ const NavButtonClick = ({ setOpenModal }) => {
 
   const ButtonRef = useRef();
 
-  // const handleCheckIn = e => {
-  //   const { name, value } = e.target;
-  //   setDataForm({ ...dataForm, [name]: value });
-  // };
+  const checkIn = getDateFormat(startDate);
+
+  const checkOut = endDate && getDateFormat(endDate);
+
+  const navigate = useNavigate();
+
   const countPlus = () => {
     setDataForm({ ...dataForm, count: dataForm.count + 1 });
   };
@@ -37,10 +38,27 @@ const NavButtonClick = ({ setOpenModal }) => {
     setDataForm({ ...dataForm, count: dataForm.count - 1 });
   };
 
+  const handleArea = city => {
+    setDataForm({ ...dataForm, area: city });
+  };
+  const queryString = {
+    area: dataForm.area,
+    count: dataForm.count,
+    checkIn: checkIn,
+    checkOut: checkOut,
+  };
+
+  const query = queryString => {
+    const result = Object.keys(queryString)
+      .map(key => (queryString[key] ? key + `=` + queryString[key] + '&' : ''))
+      .join('');
+    return result;
+  };
+
   useEffect(() => {
     const handle = e => {
       if (ButtonRef && !ButtonRef.current.contains(e.target)) {
-        setOpenModal(false);
+        closeModal();
       }
     };
     document.addEventListener('click', handle);
@@ -48,17 +66,6 @@ const NavButtonClick = ({ setOpenModal }) => {
     return () => document.removeEventListener('click', handle);
   });
 
-  const handleArea = city => {
-    setDataForm({ ...dataForm, area: city });
-  };
-
-  const handleCheckIn = checkIn => {
-    setDataForm({ ...dataForm, checkIn: checkIn });
-  };
-
-  const handleCheckOut = checkOut => {
-    setDataForm({ ...dataForm, checkOut: checkOut });
-  };
   return (
     <NavButtonArea ref={ButtonRef}>
       <SearchBar>
@@ -83,18 +90,17 @@ const NavButtonClick = ({ setOpenModal }) => {
           <SpanCheckIn>
             체크인
             <br />
-            {getDateFormat(startDate)}
+            {checkIn}
           </SpanCheckIn>
           <SpanCheckOut>
             체크아웃
             <br />
-            {endDate && getDateFormat(endDate)}
+            {checkOut}
           </SpanCheckOut>
         </CheckIn>
         {opened === 'checkin' && (
           <CheckInModal
             startDate={startDate}
-            handleCheckIn={handleCheckIn}
             setStartDate={setStartDate}
             endDate={endDate}
             setEndDate={setEndDate}
@@ -115,7 +121,13 @@ const NavButtonClick = ({ setOpenModal }) => {
             countMinus={countMinus}
           />
         )}
-        <ButtonRadious>
+        <ButtonRadious
+          onClick={e => {
+            e.stopPropagation();
+            closeModal();
+            navigate(`/${query(queryString)}`);
+          }}
+        >
           <ButtonIcon src={Search} />
         </ButtonRadious>
       </SearchBar>
@@ -211,20 +223,20 @@ const SpanCheckOut = styled.div`
 
 const ButtonRadious = styled.div`
   position: relative;
-  top: 0;
-  right: -100px;
+  top: -5px;
+  right: -60px;
   border: 1px solid gray;
   border-radius: 100%;
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background-color: pink;
   border: none;
 `;
 
 const ButtonIcon = styled.img`
   right: 10px;
-  width: 25px;
-  height: 25px;
+  width: 35px;
+  height: 35px;
   margin-top: 7px;
   filter: invert(100%);
 `;

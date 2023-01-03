@@ -6,7 +6,7 @@ const NavInfo = ({ setOpenModal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = useRef();
 
-  useEffect(e => {
+  useEffect(() => {
     const handle = e => {
       if (close && !close.current.contains(e.target)) {
         setOpenModal(false);
@@ -26,7 +26,8 @@ const NavInfo = ({ setOpenModal }) => {
           <>
             <InfoBlock key={Info.id}>
               <InfoLogin
-                onClick={() => {
+                onClick={e => {
+                  e.stopPropagation();
                   setIsOpen(true);
                 }}
               >

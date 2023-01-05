@@ -83,19 +83,20 @@ const Detail = () => {
   //TODO: 백이랑 통신
 
   // const onClick = () => {
-  //   fetch(`${API}/product/booking`, {
-  //     method: 'post',
+  //   fetch('http://10.58.52.227:8000/products/booking', {
+  //     method: 'POST',
   //     headers: {
   //       'Content-Type': 'application/json',
-  //       Authorization: window.localStorage.getItem('TOKEN'),
+  //       Authorization: localStorage.getItem('token'),
   //     },
-  //     body: JSON.stringify({productId: id , guestNumber:guestNumber ,checkIn: checkIn , checkOut:checkOut, totalPrice:totalPrice}),
-  //   })
-  //   .then(response => {
-  //     return response.json();
-  //   })
-  //   .tnen( localStorage.setItem('TOKEN', data.accessToken);
-  //   alert('예약이 완료되었습니다 ');)
+  //     body: JSON.stringify({
+  //       productId: listId.id,
+  //       guestNumber: count,
+  //       checkIn: getDateFormat(startDate),
+  //       checkOut: endDate && getDateFormat(endDate),
+  //       totalPrice: totalPrice,
+  //     }),
+  //   });
   // };
 
   const onChange = dates => {

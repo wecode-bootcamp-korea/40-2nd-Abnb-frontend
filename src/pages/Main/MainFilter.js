@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getQueryMap } from 'utils/querystring';
 
@@ -134,8 +134,9 @@ const MainFilter = ({ setIsOpenModal }) => {
         <FilterButton
           onClick={() => {
             setIsOpenModal(false);
+            console.log(queryMap);
             if (pathname === '/search') {
-              navigate(`${search}&${query({ ...queryMap, ...initQueryObj })}`);
+              navigate(`?${query({ ...queryMap, ...initQueryObj })}`);
             } else {
               navigate(`search?${query({ ...queryMap, ...initQueryObj })}`);
             }

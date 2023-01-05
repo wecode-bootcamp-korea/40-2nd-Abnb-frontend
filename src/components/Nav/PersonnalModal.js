@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const PersonnalModal = ({ count, countPlus, countMinus }) => {
+const PersonnalModal = ({ adult, countPlus, countMinus }) => {
   const PlusCount = () => {
     countPlus();
   };
@@ -14,7 +14,7 @@ const PersonnalModal = ({ count, countPlus, countMinus }) => {
       <Header>인원선택</Header>
       <SelectBar>
         <MinusButton onClick={MinusCount}> - </MinusButton>
-        <Select>{count}</Select>
+        <Select>{adult}</Select>
         <PlusButton onClick={PlusCount}> + </PlusButton>
       </SelectBar>
     </PersonnalModalArea>

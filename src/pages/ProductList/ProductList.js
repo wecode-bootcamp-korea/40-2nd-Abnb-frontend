@@ -1,24 +1,33 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import Card from 'components/Card/Card';
+import MainSelect from 'pages/Main/MainSelect';
 
 const ProductList = () => {
+  const location = useLocation();
   const [accommodationList, setAccommodationList] = useState([]);
+  const querystring = location.search.includes('?')
+    ? location.search.substring(1)
+    : location.search;
 
   useEffect(() => {
-    fetch('/data/MOCK.json')
+    fetch(`http://10.58.52.227:8000/products?${querystring}`)
       .then(res => res.json())
       .then(data => setAccommodationList(data));
-  }, []);
+  }, [querystring]);
 
   return (
-    <ProductListContainer>
-      <ProductListBox>
-        {accommodationList.map(data => (
-          <Card key={data.id} {...data} />
-        ))}
-      </ProductListBox>
-    </ProductListContainer>
+    <>
+      <MainSelect />
+      <ProductListContainer>
+        <ProductListBox>
+          {accommodationList.map(data => (
+            <Card key={data.id} {...data} />
+          ))}
+        </ProductListBox>
+      </ProductListContainer>
+    </>
   );
 };
 
@@ -26,11 +35,12 @@ export default ProductList;
 
 const ProductListContainer = styled.div`
   width: fit-content;
-  margin: 20px auto;
+  margin: 180px auto;
 `;
+
 const ProductListBox = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
   position: relative;
   width: 100%;
   grid-gap: 25px;

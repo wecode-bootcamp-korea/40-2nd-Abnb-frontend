@@ -32,8 +32,7 @@ const LoginModal = ({ setIsOpen }) => {
       <LoginBody>
         <LoginWelcome>
           <LoginTitle>
-            <img alt="에어비앤비 로고" src="/images/a-bnb-logo.png" />
-            <div>Abnb</div>
+            <img alt="에어비앤비 로고" src="/images/Abnb.png" />
           </LoginTitle>
           <span>에이비앤비에 오신 것을 환영합니다.</span>
         </LoginWelcome>
@@ -113,8 +112,7 @@ const LoginTitle = styled.div`
   color: #ff395c;
 
   img {
-    width: 50px;
-    height: 50px;
+    width: 150px;
   }
 `;
 

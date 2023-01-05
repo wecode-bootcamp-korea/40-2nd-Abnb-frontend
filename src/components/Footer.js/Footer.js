@@ -1,10 +1,21 @@
 import React from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import { flexBox } from 'utils/variables';
 
+const interruptedRoute = ['list'];
+const interruptedRouteFooter = ['/hosting'];
+
 const Footer = () => {
+  const { pathname } = useLocation();
+  const isHideFooter = interruptedRoute.some(path => pathname.includes(path));
+  const isHideHostingFooter = interruptedRouteFooter.some(
+    path => path === pathname
+  );
+
+  if (isHideHostingFooter) return <></>;
   return (
-    <FooterContainer>
+    <FooterContainer isHideFooter={isHideFooter}>
       <InfoBox>
         <FooterListBox>
           {FOOTER_MAP.map((list, index) => (
@@ -13,11 +24,11 @@ const Footer = () => {
         </FooterListBox>
         <FooterInfoBox>
           <FooterInfo>
-            <img alt="language" src="images/Footer/earth.png" />
+            <img alt="language" src="/images/Footer/earth.png" />
             <span>한국어 (KR)</span>
           </FooterInfo>
           <FooterInfo>
-            <img alt="currency" src="images/Footer/korea-won.png" />
+            <img alt="currency" src="/images/Footer/korea-won.png" />
             <span>KRW</span>
           </FooterInfo>
           <FooterInfo>
@@ -47,7 +58,7 @@ const FooterContainer = styled.div`
   background-color: white;
   border: 1px solid #dcdddd;
   bottom: 0;
-  position: fixed;
+  position: ${({ isHideFooter }) => !isHideFooter && 'fixed'};
   z-index: 1;
 `;
 

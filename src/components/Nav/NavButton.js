@@ -34,10 +34,10 @@ const NaviButton = styled.button`
   position: relative;
   width: 300px;
   height: 50px;
-  border-radius: 20px;
+  border-radius: 30px;
   margin-left: 150px;
   background-color: white;
-  box-shadow: 1px 1px 1px 1px gray;
+  box-shadow: 1px 1px 1px 1px #dddddd;
   border: none;
   cursor: pointer;
 `;
@@ -60,6 +60,6 @@ const ButtonRadious = styled.div`
   border-radius: 100%;
   width: 40px;
   height: 40px;
-  background-color: #ff385c;
+  background-color: #fe395c;
   border: none;
 `;

@@ -9,8 +9,8 @@ import { getDateFormat } from '../../utils/format';
 
 const NavButtonClick = ({ closeModal }) => {
   const [dataForm, setDataForm] = useState({
-    area: '',
-    count: 1,
+    region: '',
+    adult: 1,
   });
 
   const [opened, setOpened] = useState(null);
@@ -28,22 +28,22 @@ const NavButtonClick = ({ closeModal }) => {
   const navigate = useNavigate();
 
   const countPlus = () => {
-    setDataForm({ ...dataForm, count: dataForm.count + 1 });
+    setDataForm({ ...dataForm, adult: dataForm.adult + 1 });
   };
 
   const countMinus = () => {
-    if (dataForm.count < 2) {
-      setDataForm({ ...dataForm, count: (dataForm.count = 1) });
+    if (dataForm.adult < 2) {
+      setDataForm({ ...dataForm, adult: (dataForm.adult = 1) });
     }
-    setDataForm({ ...dataForm, count: dataForm.count - 1 });
+    setDataForm({ ...dataForm, adult: dataForm.adult - 1 });
   };
 
   const handleArea = city => {
-    setDataForm({ ...dataForm, area: city });
+    setDataForm({ ...dataForm, region: city });
   };
   const queryString = {
-    area: dataForm.area,
-    count: dataForm.count,
+    region: dataForm.region,
+    adult: dataForm.adult,
     checkIn: checkIn,
     checkOut: checkOut,
   };
@@ -76,7 +76,7 @@ const NavButtonClick = ({ closeModal }) => {
           className={opened === 'travel' ? 'is-active' : 'un-active'}
         >
           여행지 선택 <br />
-          {dataForm.area}
+          {dataForm.region}
         </TravelSelect>
         {opened === 'travel' && (
           <TravelSelectModal handleArea={handleArea} setOpend={setOpened} />
@@ -112,20 +112,33 @@ const NavButtonClick = ({ closeModal }) => {
           }}
           className={opened === 'personnal' ? 'is-active' : 'un-active'}
         >
-          인원선택 : {dataForm.count} 명
+          인원선택 : {dataForm.adult} 명
         </Personnal>
         {opened === 'personnal' && (
           <PersonnalModal
-            count={dataForm.count}
+            adult={dataForm.adult}
             countPlus={countPlus}
             countMinus={countMinus}
           />
         )}
         <ButtonRadious
           onClick={e => {
+            // fetch(`http://10.58.52.227:8000/products?${query(queryString)}`, {
+            //   method: 'GET',
+            //   headers: {
+            //     'Content-Type': 'application/json;charset=utf-8',
+            //   },
+            // });
+            // .then(response => response.json())
+            // .then(result => {
+            //   e.stopPropagation();
+
+            //   navigate(`/?${query(queryString)}`);
+            //   closeModal();
+            // });
             e.stopPropagation();
             closeModal();
-            navigate(`/${query(queryString)}`);
+            navigate(`search?${query(queryString)}`);
           }}
         >
           <ButtonIcon src={Search} />
@@ -153,9 +166,9 @@ const SearchBar = styled.div`
   margin-left: -170px;
   width: 900px;
   height: 60px;
-  border: 1px solid #d3d3d3;
-  border-radius: 20px;
-  background-color: #d3d3d3;
+  border: 1px solid #dddddd;
+  border-radius: 30px;
+  background-color: #ebebeb;
   margin-bottom: 10px;
 `;
 
@@ -229,7 +242,7 @@ const ButtonRadious = styled.div`
   border-radius: 100%;
   width: 50px;
   height: 50px;
-  background-color: pink;
+  background-color: #fe395c;
   border: none;
   background-color: #ff385c;
 `;

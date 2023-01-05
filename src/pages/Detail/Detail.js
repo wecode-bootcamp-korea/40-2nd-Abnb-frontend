@@ -6,7 +6,6 @@ import Modal from './Modal';
 import { getDateFormat } from '../../utils/format';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addDays, subDays } from 'date-fns';
-
 const { kakao } = window;
 
 const Detail = () => {
@@ -50,13 +49,13 @@ const Detail = () => {
   // TODO:`http://10.58.52.227:8000/products/${listId.id}`
 
   useEffect(() => {
-    fetch('./data/detail.json')
+    fetch('/data/Detail.json')
       .then(response => response.json())
       .then(result => {
         setDetailData(result[0]);
         setLoading(false);
       });
-  }, [productId]);
+  }, []);
 
   useEffect(() => {
     if (!mapRef.current) return;

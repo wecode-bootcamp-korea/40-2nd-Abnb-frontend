@@ -29,10 +29,10 @@ const Card = props => {
 
   return (
     <div>
-      <LinkBox to={`/list/${id}`}>
-        <CardBox>
-          <CardCarouselContainer>
-            <CardCarouselBox>
+      <CardBox>
+        <CardCarouselContainer>
+          <CardCarouselBox>
+            <LinkBox to={`/list/${id}`}>
               <CarouselBox currentIdx={currentIdx}>
                 {images.map(item => (
                   <CardImageBox key={item.id}>
@@ -40,24 +40,26 @@ const Card = props => {
                   </CardImageBox>
                 ))}
               </CarouselBox>
-            </CardCarouselBox>
-            {REACH_MAX && (
-              <CarouselPrevButton onClick={prevImage}>〈</CarouselPrevButton>
-            )}
-            {REACH_MIN && (
-              <CarouselNextButton onClick={nextImage}>〉</CarouselNextButton>
-            )}
-          </CardCarouselContainer>
-          <CardInfoBox>
+            </LinkBox>
+          </CardCarouselBox>
+          {REACH_MAX && (
+            <CarouselPrevButton onClick={prevImage}>〈</CarouselPrevButton>
+          )}
+          {REACH_MIN && (
+            <CarouselNextButton onClick={nextImage}>〉</CarouselNextButton>
+          )}
+        </CardCarouselContainer>
+        <CardInfoBox>
+          <LinkBox to={`/list/${id}`}>
             <CardTitle>{title}</CardTitle>
             <CardDescription>{address}</CardDescription>
             <CardPrice>
               <span>₩{[Math.floor(price)].toLocaleString()}</span>
               <CardPerDay> /박</CardPerDay>
             </CardPrice>
-          </CardInfoBox>
-        </CardBox>
-      </LinkBox>
+          </LinkBox>
+        </CardInfoBox>
+      </CardBox>
     </div>
   );
 };

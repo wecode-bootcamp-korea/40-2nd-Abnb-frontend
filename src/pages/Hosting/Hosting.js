@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import HostInfo from './HostingStep/HostInfo';
 import HostName from './HostingStep/HostName';
@@ -27,6 +28,7 @@ const INIT_FORM = {
 };
 
 const Hosting = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(INIT_FORM);
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -111,27 +113,15 @@ const Hosting = () => {
     }
     newFormData.append('price', formData.price);
 
-    //TODO : 통신확인 후 주석 삭제 예정
-    // for (let [key, value] of newFormData.entries()) {
-    //   console.log(key, value);
-    // }
-
-    // for (let value of newFormData.values()) {
-    //   console.log('value', value);
-    // }
-
-    //TODO : Back단과 통신연결 예정
-    // fetch('백엔드API주소', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: newFormData,
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     alert('호스트님 환영합니다! 숙소 등록이 완료되었습니다.');
-    //   });
+    fetch('http://10.58.52.154:8000/products/host', {
+      method: 'POST',
+      body: newFormData,
+    })
+      .then(res => res.json())
+      .then(data => {
+        alert('호스트님 환영합니다! 숙소 등록이 완료되었습니다.');
+        navigate('/');
+      });
   };
 
   return (
@@ -139,7 +129,9 @@ const Hosting = () => {
       <HostingNav>
         <NavContainer>
           <Logo src="./images/Host/LOGO.png" alt="logo" />
-          <NavButton>나가기</NavButton>
+          <NavButton>
+            <LinkBox to="/">나가기</LinkBox>
+          </NavButton>
         </NavContainer>
       </HostingNav>
       {currentPage}
@@ -203,9 +195,14 @@ const NavButton = styled.button`
   height: 40px;
   border: 1px solid #dddddd;
   border-radius: 32px;
+
   &:hover {
     border-color: #000000;
   }
+`;
+
+const LinkBox = styled(Link)`
+  text-decoration: none;
 `;
 
 const HostFooter = styled.div`

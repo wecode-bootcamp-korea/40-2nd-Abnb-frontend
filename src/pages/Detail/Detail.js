@@ -47,8 +47,6 @@ const Detail = () => {
   const onClickDecreaseBtn = () => setCount(prev => prev - 1);
   const onClickIncreaseBtn = () => setCount(prev => prev + 1);
 
-  // TODO:`http://10.58.52.227:8000/products/${listId.id}`
-
   useEffect(() => {
     fetch(`http://10.58.52.227:8000/products/${listId.id}`)
       .then(response => response.json())
@@ -62,11 +60,11 @@ const Detail = () => {
     if (!mapRef.current) return;
     const container = mapRef.current;
     const options = {
-      center: new kakao.maps.LatLng(37.47850303, 126.877853),
+      center: new kakao.maps.LatLng(37.5064, 127.054),
       level: 5,
     };
     const map = new kakao.maps.Map(container, options);
-    const markerPosition = new kakao.maps.LatLng(37.47850303, 126.877853);
+    const markerPosition = new kakao.maps.LatLng(37.5064, 127.054);
     const imageSize = new kakao.maps.Size(44, 40);
     const markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize);
     const marker = new kakao.maps.Marker({
@@ -78,7 +76,6 @@ const Detail = () => {
 
   if (loading) return;
 
-  //TODO: 백이랑 통신
   const onClick = () => {
     fetch('http://10.58.52.227:8000/products/booking', {
       method: 'POST',
@@ -168,11 +165,11 @@ const Detail = () => {
               <p>
                 <Span>에어</Span>커버
               </p>
-              <AirDetailText>
+              <div>
                 모든 예약에는 호스트가 예약을 취소하거나 숙소 정보가 정확하지
                 않은 경우 또는 체크인에 문제가 있는 상황에 대비한 무료 보호
                 프로그램이 포함됩니다.
-              </AirDetailText>
+              </div>
               <button
                 className="airButton"
                 onClick={() => {
@@ -209,7 +206,8 @@ const Detail = () => {
                     </NonePrice>
                   ) : (
                     <Price>
-                      ₩{Math.floor(detailData.price).toLocaleString()}/박
+                      ₩{Math.floor(detailData.price).toLocaleString()}
+                      <span>&nbsp;/박</span>
                     </Price>
                   )}
                 </CheckInBox>
@@ -262,6 +260,9 @@ const Detail = () => {
                 >
                   예약하기
                 </Reservation>
+                <span className="reservationMsg">
+                  예약 확정 전에는 요금이 청구되지 않습니다.
+                </span>
               </CheckBox>
               <PriceBox>
                 {!isDefult && (
@@ -389,7 +390,7 @@ const DelateButton = styled.div`
 `;
 
 const DateBox = styled.div`
-  width: 70%;
+  width: 65%;
 `;
 
 const DateHostBox = styled.div`
@@ -400,17 +401,16 @@ const DateHostBox = styled.div`
   border-bottom: 1px solid #b0b0b0;
   padding-top: 10px;
   color: inherit;
-  font-size: 30px;
+  font-size: 22px;
   font-weight: inherit;
 `;
 
 const HostPeople = styled.div`
-  font-size: 20px;
+  font-size: 16px;
 `;
 
 const HostDetailBox = styled.div`
   width: 100%;
-  height: 250px;
   padding-top: 5px;
 `;
 
@@ -420,7 +420,8 @@ const OfficeBox = styled.div`
   padding-left: 5px;
   font-size: 16px;
   line-height: 30px;
-  padding-top: 5px;
+  padding-top: 22px;
+  margin-bottom: 20px;
 `;
 
 const WifiText = styled.div`
@@ -434,6 +435,7 @@ const SelfBox = styled.div`
   font-size: 16px;
   padding-left: 5px;
   line-height: 30px;
+  margin-bottom: 20px;
 `;
 
 const KeyText = styled.div`
@@ -444,10 +446,12 @@ const KeyText = styled.div`
 const LocationBox = styled.div`
   width: 100%;
   height: 30%;
+  padding-bottom: 22px;
   font-size: 16px;
   padding-left: 5px;
   line-height: 30px;
   border-bottom: 1px solid #b0b0b0;
+  margin-bottom: 24px;
 `;
 
 const SinceText = styled.div`
@@ -464,30 +468,39 @@ const AirCoverBox = styled.div`
   font-weight: bold;
   margin-bottom: 10px;
 
+  p {
+    margin-bottom: 16px;
+  }
+
   .airButton {
-    border: none;
-    outline: none;
-    background-color: white;
-    text-decoration: underline;
     width: 100px;
     height: 30px;
-    cursor: pointer;
+    margin-bottom: 24px;
+    padding-left: 0;
+    background-color: white;
+    outline: none;
+    font-size: 16px;
+    font-weight: 600;
+    text-decoration: underline;
     text-align: start;
+    cursor: pointer;
+    border: none;
   }
-`;
 
-const AirDetailText = styled.div`
-  font-size: 14px;
-  line-height: 20px;
-  color: #717171;
+  div {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: normal;
+  }
 `;
 
 const LineTextBox = styled.div`
   width: 100%;
   font-size: 16px;
+  margin-top: 24px;
   padding-left: 5px;
-  line-height: 60px;
-  margin-top: 10px;
+  padding-bottom: 24px;
+  line-height: 24px;
   border-bottom: 1px solid #b0b0b0;
   color: #222222;
 `;
@@ -511,31 +524,38 @@ const SpanHost = styled.div`
 `;
 
 const LocactionMapBox = styled.div`
-  width: 93%;
+  width: 91%;
   height: 500px;
   display: flex;
   justify-content: center;
 `;
 
 const PayBox = styled.div`
-  width: 25%;
+  width: 30%;
   height: 400px;
   border: 1px solid #b0b0b0;
   border-radius: 10px;
   position: sticky;
-  top: 99px;
+  top: 150px;
   margin-bottom: 30px;
   padding: 20px;
   box-shadow: rgb(0 0 0 / 12%) 0px 6px 16px;
 `;
 
 const CheckBox = styled.div`
-  width: 100%;
   flex-direction: column;
+  width: 100%;
   padding-top: 10px;
 
   &:hover {
     cursor: pointer;
+  }
+
+  .reservationMsg {
+    /* border: 1px solid red; */
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
   }
 `;
 
@@ -543,39 +563,54 @@ const CheckInBox = styled.div`
   width: 90%;
   height: 3vw;
   font-size: 20px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
+`;
+
+const NonePrice = styled.div`
+  font-size: 20px;
+`;
+
+const Price = styled.div`
+  font-size: 20px;
+  font-weight: bold;
+
+  span {
+    font-size: 17px;
+    font-weight: normal;
+  }
 `;
 
 const CheckIn = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 50%;
   height: 4vw;
   border-right: 1px solid black;
   border-top-left-radius: 20px;
   padding: 10px;
-  font-weight: bold;
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  line-height: 20px;
   cursor: pointer;
+
   &:focus {
     outline: none;
   }
 `;
 
 const CheckOut = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   width: 50%;
   height: 4vw;
   border-top-right-radius: 20px;
   padding: 10px;
-  font-weight: bold;
   font-size: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  line-height: 20px;
   cursor: pointer;
-  flex-direction: column;
 
   &:focus {
     outline: none;
@@ -589,15 +624,6 @@ const FormIn = styled.div`
   justify-content: space-between;
   text-align: center;
 `;
-
-const NonePrice = styled.div`
-  font-size: 20px;
-`;
-
-const Price = styled.div`
-  font-size: 20px;
-`;
-
 const CheckOutBox = styled.div`
   width: 100%;
   height: 4vw;
@@ -605,13 +631,12 @@ const CheckOutBox = styled.div`
   justify-content: center;
   align-items: center;
   border: 1px solid #b0b0b0;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
 `;
 
 const DateSpan = styled.div`
-  font-size: 20px;
-  font-weight: 10px;
+  font-size: 16px;
 `;
 
 const AdultButton = styled.div`
@@ -622,18 +647,18 @@ const AdultButton = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  font-weight: bold;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
 `;
 
 const Reservation = styled.div`
   width: 100%;
-  border-radius: 10px;
   color: white;
-  text-align: center;
   margin-top: 15px;
+  margin-bottom: 10px;
+  text-align: center;
   line-height: 50px;
+  border-radius: 10px;
   background: linear-gradient(
     to right,
     rgb(230, 30, 77) 0%,
@@ -644,17 +669,15 @@ const Reservation = styled.div`
 
 const PriceBox = styled.div`
   width: 100%;
-  margin-top: 60px;
+  margin-top: 40px;
   border-top: 1px solid #b0b0b0;
 `;
 
 const TotalPrice = styled.div`
-  font-size: 20px;
-  justify-content: center;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  margin: 10px;
+  margin-top: 20px;
+  width: 98%;
 `;
 
 const TotalText = styled.div`

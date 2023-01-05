@@ -80,17 +80,17 @@ const StepLastBox = styled.div`
 `;
 
 const StepLastTitleSection = styled.div`
-  margin: auto;
   flex-direction: column;
+  width: 100%;
+  margin: auto;
   margin-top: 32px;
   margin-bottom: 20px;
-  width: 100%;
 `;
 
 const StepLastTitle = styled.h1`
-  line-height: 50px;
   font-size: 48px;
   font-weight: 600;
+  line-height: 50px;
 `;
 
 const MessageBox = styled.div`
@@ -128,10 +128,10 @@ const ReviewImg = styled.div`
   height: 300px;
 
   img {
-    border: 1px solid rgba(0, 0, 0, 0.04);
     width: 100%;
     height: 100%;
     background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.04);
     border-radius: 8px;
   }
 `;
@@ -160,8 +160,8 @@ const LastReviewMsg = styled.div`
   h2 {
     margin-bottom: 24px;
     font-size: 22px;
-    line-height: 26px;
     font-weight: 600;
+    line-height: 26px;
   }
 
   h3 {

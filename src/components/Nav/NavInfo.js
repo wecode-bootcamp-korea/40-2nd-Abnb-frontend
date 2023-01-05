@@ -1,10 +1,12 @@
 import React, { useRef, useEffect, useState } from 'react';
 import LoginModal from '../../pages/LoginModal/LoginModal';
 import styled from 'styled-components/macro';
+import { useNavigate } from 'react-router-dom';
 
 const NavInfo = ({ setOpenModal }) => {
   const [isOpen, setIsOpen] = useState(false);
   const close = useRef();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handle = e => {
@@ -36,7 +38,13 @@ const NavInfo = ({ setOpenModal }) => {
               {isOpen && <LoginModal setIsOpen={setIsOpen} />}
             </InfoBlock>
             <InfoBlock>
-              <InfoSignUp>{Info.Abnb}</InfoSignUp>
+              <InfoSignUp
+                onClick={() => {
+                  navigate(`/hosting`);
+                }}
+              >
+                {Info.Abnb}
+              </InfoSignUp>
             </InfoBlock>
           </>
         );

@@ -1,30 +1,34 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import styled from 'styled-components';
+import { getQueryMap } from 'utils/querystring';
 
 const MainFilter = ({ setIsOpenModal }) => {
+  const { search, pathname } = useLocation();
+  const initQueryObj = getQueryMap(search);
+
   const [selected, setSelected] = useState({
     bathroom: '상관없음',
     bed: '상관없음',
-    bath: '상관없음',
+    bedroom: '상관없음',
   });
   const [filterForm, setFilterForm] = useState({
     minprice: '',
     maxprice: '',
-    all: '',
-    priv: '',
-    share: '',
+    private: false,
+    guest: false,
+    public: false,
   });
 
   const navigate = useNavigate();
   const queryMap = {
     min_price: `${filterForm.minprice}`,
     max_price: `${filterForm.maxprice}`,
-    all: filterForm.all,
-    priv: filterForm.priv,
-    share: filterForm.share,
+    private: filterForm.private,
+    guest: filterForm.guest,
+    public: filterForm.public,
     bathroom: selected.bathroom,
-    bath: selected.bath,
+    bedroom: selected.bedroom,
     bed: selected.bed,
   };
 
@@ -130,7 +134,11 @@ const MainFilter = ({ setIsOpenModal }) => {
         <FilterButton
           onClick={() => {
             setIsOpenModal(false);
-            navigate(`/?${query(queryMap)}`);
+            if (pathname === '/search') {
+              navigate(`${search}&${query({ ...queryMap, ...initQueryObj })}`);
+            } else {
+              navigate(`search?${query({ ...queryMap, ...initQueryObj })}`);
+            }
           }}
         >
           찾 기
@@ -165,6 +173,7 @@ const FilterTop = styled.div`
   font-weight: bold;
   border-bottom: 1px solid #dfdfdf;
 `;
+
 const CloseButton = styled.div`
   cursor: pointer;
   display: flex;
@@ -305,23 +314,23 @@ const LODGING_CATEGORY = [
     id: 1,
     category: '집 전체',
     detail: '단독으로 사용하는 공간 전체',
-    name: 'all',
+    name: 'private',
   },
   {
     id: 2,
     category: '개인실',
     detail: '집 또는 호텔의 개인실과 일부 공간',
-    name: 'priv',
+    name: 'guest',
   },
   {
     id: 3,
     category: '다인실',
     detail: '다른 사람들과 함께 사용하는 다인실 및 공용 공간',
-    name: 'share',
+    name: 'public',
   },
 ];
 const ROOMS = {
   bed: ['상관없음', 1, 2, 3, 4, 5, 6, 7, '8+'],
-  bath: ['상관없음', 1, 2, 3, 4, 5, 6, 7, '8+'],
+  bedroom: ['상관없음', 1, 2, 3, 4, 5, 6, 7, '8+'],
   bathroom: ['상관없음', 1, 2, 3, 4, 5, 6, 7, '8+'],
 };

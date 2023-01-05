@@ -4,11 +4,22 @@ import NavInfo from './NavInfo';
 import NavButton from './NavButton';
 import User from '../../assets/nav/menu.png';
 import Menu from '../../assets/nav/user.png';
-import Logo from '../../assets/nav/a-bnb-logo.png';
+import Logo from '../../assets/nav/Abnb.png';
+import { useNavigate, useLocation } from 'react-router-dom';
+
+const interruptedRoute = ['/hosting'];
 
 const Nav = () => {
+  const { pathname } = useLocation();
   const [isModal, setIsModal] = useState(false);
   const [isButtonModal, setIsButtonModal] = useState(false);
+  const navigate = useNavigate();
+
+  const isHide = interruptedRoute.some(path => path === pathname);
+
+  const goMain = () => {
+    navigate('/');
+  };
 
   const onOpen = () => {
     setIsButtonModal(true);
@@ -17,11 +28,11 @@ const Nav = () => {
     setIsButtonModal(false);
   };
 
+  if (isHide) return <></>;
   return (
     <NavBar isButtonModal={isButtonModal}>
-      <NavFlex>
+      <NavFlex onClick={goMain}>
         <RightLogo src={Logo} />
-        <NavLogo>Abnb</NavLogo>
       </NavFlex>
 
       <NavButton
@@ -31,7 +42,13 @@ const Nav = () => {
       />
 
       <NavRight>
-        <RightFont>당신의공간을 에이비엔비하세요</RightFont>
+        <RightFont
+          onClick={() => {
+            navigate(`/hosting`);
+          }}
+        >
+          당신의 공간을 에이비엔비하세요
+        </RightFont>
         <NavUserInfo
           onClick={e => {
             e.stopPropagation();
@@ -50,17 +67,17 @@ const Nav = () => {
 
 export default Nav;
 
-const NavFlex = styled.div`
+const NavFlex = styled.button`
   display: flex;
   align-items: center;
   cursor: pointer;
-  margin-left: 30px;
+  border: none;
+  background-color: transparent;
 `;
 
 const RightLogo = styled.img`
-  width: 50px;
-  height: 50px;
-  color: #ff385c;
+  width: 150px;
+  padding-top: 5px;
 `;
 
 const NavBar = styled.div`
@@ -68,7 +85,7 @@ const NavBar = styled.div`
   justify-content: space-between;
   position: fixed;
   top: 0;
-  padding: 20px 100px;
+  padding: 20px 50px;
   width: 100%;
   border-bottom: 1px solid #d3d3d3;
   z-index: 6;
@@ -81,13 +98,11 @@ const NavLogo = styled.h1`
   font-weight: bold;
   color: pink;
   font-size: 20px;
-  color: #ff385c;
 `;
 const NavRight = styled.div`
   display: flex;
   align-items: center;
   width: 300px;
-  margin-right: 42px;
 `;
 
 const RightFont = styled.div`

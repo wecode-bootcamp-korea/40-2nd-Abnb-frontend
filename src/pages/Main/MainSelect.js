@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSearchParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import MainFilter from './MainFilter';
 import Filter from '../../assets/main/filter.png';
 import styled from 'styled-components';
@@ -7,14 +7,13 @@ import styled from 'styled-components';
 const MainSelect = () => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
-
   const navigate = useNavigate();
+
   return (
     <MainSelectArea>
       <SelectItems
         onClick={() => {
-          searchParams.delete('filter');
-          setSearchParams(searchParams);
+          navigate('/');
         }}
       >
         <SelectIcon src="/images/MainPage/all.png" />
@@ -26,8 +25,12 @@ const MainSelect = () => {
           <SelectItems
             key={id}
             onClick={() => {
-              searchParams.set('filter', params);
-              setSearchParams(searchParams);
+              if (searchParams.get('adult')) {
+                searchParams.set('category', params);
+                setSearchParams(searchParams);
+              } else {
+                navigate(`/search?category=${params}`);
+              }
             }}
           >
             <SelectIcon src={url} />
@@ -52,33 +55,33 @@ const MainSelect = () => {
 export default MainSelect;
 
 const MainSelectArea = styled.div`
-  margin-top: 71px;
+  padding: 0 50px;
+  margin-top: -90px;
   position: fixed;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
-  height: 80px;
+  height: 90px;
   z-index: 3;
   background-color: white;
 `;
 
 const SelectItems = styled.div`
   &:hover {
-    background-color: gray;
+    background-color: #d3d3d3;
   }
   cursor: pointer;
   padding-left: 10px;
   padding-right: 10px;
-
-  height: 50px;
   border-radius: 10px;
   margin: 10px;
 `;
 const SelectIcon = styled.img`
   margin: auto;
   display: block;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
 `;
 
 const SelectName = styled.div`
@@ -94,7 +97,6 @@ const FilterButton = styled.button`
   align-items: center;
   background-color: white;
   cursor: pointer;
-  margin-top: 16px;
   padding: 7px 0;
   width: 100px;
   height: 40px;
@@ -128,7 +130,7 @@ const MAINITEMS = [
     id: 4,
     name: '해변',
     url: '/images/MainPage/해변.png',
-    params: 'beach',
+    params: 'sea',
   },
   {
     id: 5,

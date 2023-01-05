@@ -1,9 +1,7 @@
 import Card from 'components/Card/Card';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import MainSelect from './MainSelect';
-import MainList from './MainList';
 import Skeleton from './Skeleton';
 
 const Main = () => {
@@ -13,10 +11,9 @@ const Main = () => {
   const [isEnd, setIsEnd] = useState(false);
   const observerTarget = useRef(null);
   const skeletonArray = useMemo(() => Array(8).fill(''), []);
-  const location = useLocation();
 
   const getFetch = () => {
-    fetch(`http://10.58.52.227:8000/products?${location.search}&page=${page}`)
+    fetch(`http://10.58.52.227:8000/products?page=${page}`)
       .then(res => res.json())
       .then(data => {
         if (data.length === 0) return setIsEnd(true);
@@ -68,7 +65,7 @@ export default Main;
 
 const ProductListContainer = styled.div`
   width: fit-content;
-  margin: 120px auto;
+  margin: 180px auto;
 `;
 
 const ProductListBox = styled.div`

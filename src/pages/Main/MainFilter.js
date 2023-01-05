@@ -2,6 +2,11 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getQueryMap } from 'utils/querystring';
+import ReactDOM from 'react-dom';
+
+const ModalPortal = ({ children }) => {
+  return ReactDOM.createPortal(children, document.getElementById('modal-root'));
+};
 
 const MainFilter = ({ setIsOpenModal }) => {
   const { search, pathname } = useLocation();
@@ -66,86 +71,88 @@ const MainFilter = ({ setIsOpenModal }) => {
   };
 
   return (
-    <MainFilterArea ref={ref}>
-      <FilterTop>
-        필터
-        <CloseButton onClick={handleButton}>x</CloseButton>
-      </FilterTop>
-      <FilterMain>
-        <Head>가격 범위</Head>
-        <PriceBoxArea>
-          <PriceBox>
-            최저 가격
-            <br />
-            ₩&nbsp;
-            <Price name="minprice" onChange={handlePrice} />
-          </PriceBox>
-          <PriceBoxMinus>-</PriceBoxMinus>
-          <PriceBox>
-            최대 가격
-            <br />
-            ₩&nbsp;
-            <Price name="maxprice" onChange={handlePrice} />
-          </PriceBox>
-        </PriceBoxArea>
-        <CheckBox>
-          <Head>숙소 유형</Head>
-          {LODGING_CATEGORY.map(items => {
-            const { id, category, detail, name } = items;
-            return (
-              <Check key={id}>
-                <CheckArea
-                  type="checkbox"
-                  id={name}
-                  name={name}
-                  onClick={() => {
-                    handleLodging(name, !filterForm[name]);
-                  }}
-                />
-                <CheckBoxFlex>
-                  <CheckCategory htmlFor={name}>{category}</CheckCategory>
-                  <CheckExplanation htmlFor={name}>{detail}</CheckExplanation>
-                </CheckBoxFlex>
-              </Check>
-            );
-          })}
-        </CheckBox>
-        <Room>
-          <Head>침실과 침대</Head>
-          {Object.entries(ROOMS).map(([key, value]) => (
-            <ButtonArea key={key}>
-              <Rooms>{key}</Rooms>
-              {value.map(v => (
-                <Button1
-                  key={v}
-                  className={selected[key] === v ? 'active' : ''}
-                  onClick={() => {
-                    changeButton({ key, value: v });
-                  }}
-                >
-                  {v}
-                </Button1>
-              ))}
-            </ButtonArea>
-          ))}
-        </Room>
-      </FilterMain>
-      <FilterFooter>
-        <FilterButton
-          onClick={() => {
-            setIsOpenModal(false);
-            console.log(queryMap);
-            if (pathname === '/search') {
-              navigate(`?${query({ ...queryMap, ...initQueryObj })}`);
-            } else {
-              navigate(`search?${query({ ...queryMap, ...initQueryObj })}`);
-            }
-          }}
-        >
-          찾 기
-        </FilterButton>
-      </FilterFooter>
-    </MainFilterArea>
+    <ModalPortal>
+      <MainFilterArea ref={ref}>
+        <FilterTop>
+          필터
+          <CloseButton onClick={handleButton}>x</CloseButton>
+        </FilterTop>
+        <FilterMain>
+          <Head>가격 범위</Head>
+          <PriceBoxArea>
+            <PriceBox>
+              최저 가격
+              <br />
+              ₩&nbsp;
+              <Price name="minprice" onChange={handlePrice} />
+            </PriceBox>
+            <PriceBoxMinus>-</PriceBoxMinus>
+            <PriceBox>
+              최대 가격
+              <br />
+              ₩&nbsp;
+              <Price name="maxprice" onChange={handlePrice} />
+            </PriceBox>
+          </PriceBoxArea>
+          <CheckBox>
+            <Head>숙소 유형</Head>
+            {LODGING_CATEGORY.map(items => {
+              const { id, category, detail, name } = items;
+              return (
+                <Check key={id}>
+                  <CheckArea
+                    type="checkbox"
+                    id={name}
+                    name={name}
+                    onClick={() => {
+                      handleLodging(name, !filterForm[name]);
+                    }}
+                  />
+                  <CheckBoxFlex>
+                    <CheckCategory htmlFor={name}>{category}</CheckCategory>
+                    <CheckExplanation htmlFor={name}>{detail}</CheckExplanation>
+                  </CheckBoxFlex>
+                </Check>
+              );
+            })}
+          </CheckBox>
+          <Room>
+            <Head>침실과 침대</Head>
+            {Object.entries(ROOMS).map(([key, value]) => (
+              <ButtonArea key={key}>
+                <Rooms>{key}</Rooms>
+                {value.map(v => (
+                  <Button1
+                    key={v}
+                    className={selected[key] === v ? 'active' : ''}
+                    onClick={() => {
+                      changeButton({ key, value: v });
+                    }}
+                  >
+                    {v}
+                  </Button1>
+                ))}
+              </ButtonArea>
+            ))}
+          </Room>
+        </FilterMain>
+        <FilterFooter>
+          <FilterButton
+            onClick={() => {
+              setIsOpenModal(false);
+              console.log(queryMap);
+              if (pathname === '/search') {
+                navigate(`?${query({ ...queryMap, ...initQueryObj })}`);
+              } else {
+                navigate(`search?${query({ ...queryMap, ...initQueryObj })}`);
+              }
+            }}
+          >
+            찾 기
+          </FilterButton>
+        </FilterFooter>
+      </MainFilterArea>
+    </ModalPortal>
   );
 };
 

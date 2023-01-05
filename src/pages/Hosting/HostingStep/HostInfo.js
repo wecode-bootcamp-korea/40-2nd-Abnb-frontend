@@ -4,11 +4,6 @@ import styled from 'styled-components';
 const HostInfo = ({ formData, onSubmit }) => {
   const { guest, bedroom, bed, bathroom } = formData;
   const hostInfo = { guest, bedroom, bed, bathroom };
-  // console.log(Object.entries(hostInfo));
-
-  // prop은 Read only
-  // handleFormData를 만들었음!!
-  // 어라? 핸들폼데이터에서 건들여주면 되지 않을까?
 
   const increaseBtn = type => e => {
     if (formData[type] === 5) return;
@@ -47,11 +42,11 @@ export default HostInfo;
 
 const HostInfoDiv = styled.div`
   position: inherit;
-  overflow-y: auto;
+  height: calc(100vh - calc(88px + 82px));
   margin-top: 88px;
   margin-bottom: 82px;
-  height: calc(100vh - calc(88px + 82px));
   padding: 0px 80px;
+  overflow-y: auto;
 `;
 
 const HostInfoContainer = styled.div`
@@ -62,10 +57,10 @@ const HostInfoContainer = styled.div`
 const HostBox = styled.div`
   display: flex;
   flex-direction: column;
-  margin: auto;
   width: 100%;
   height: 100%;
   max-width: 630px;
+  margin: auto;
   padding-top: 0px;
   animation: ${({ theme }) => theme.fadeIn} 1s linear alternate;
 `;
@@ -83,9 +78,9 @@ const InfoTitleDiv = styled.div`
 const ChooseInfoDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
   width: 100%;
   height: 100%;
+  margin-top: 30px;
   padding-top: 16px;
   padding-bottom: 16px;
   border-bottom: 1px solid #ebebeb;
@@ -94,17 +89,17 @@ const ChooseInfoDiv = styled.div`
 const ChooseTitle = styled.div`
   width: 100%;
   font-size: 18px;
-  line-height: 24px;
   font-weight: 400;
+  line-height: 24px;
 `;
 
 const ChooseCountBox = styled.div`
-  margin-left: 16px;
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
   width: 115px;
   height: 32px;
+  margin-left: 16px;
 `;
 
 const ChooseButton = styled.button`

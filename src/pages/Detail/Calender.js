@@ -29,6 +29,7 @@ const Calender = ({ range, startDate, onChange, endDate }) => {
 
 const DateContainer = styled.div`
   background-color: white;
+  margin-top: 24px;
 `;
 
 const DatePickerWrapperStyles = createGlobalStyle`

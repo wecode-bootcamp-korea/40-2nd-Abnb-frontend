@@ -9,7 +9,7 @@ const HostName = ({ formData, onSubmit }) => {
         <HostNameBox>
           <HostNameBody>
             <HostNameSection>
-              <HostNameTitle>이제 주택에 이름을 지어주세요</HostNameTitle>
+              <HostNameTitle>이제 숙소에 이름을 지어주세요</HostNameTitle>
               <MessageBox>
                 <HostNameMessage>
                   숙소 이름은 짧을수록 효과적입니다. 나중에 언제든지 변경할 수

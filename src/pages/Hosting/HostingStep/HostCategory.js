@@ -21,7 +21,7 @@ const HostCategory = ({ formData, onSubmit }) => {
                   category={category}
                   current={categories.title}
                   onClick={() => {
-                    onSubmit({ category: categories.title, isWell: true });
+                    onSubmit({ category: categories.title });
                   }}
                   key={categories.id}
                 >

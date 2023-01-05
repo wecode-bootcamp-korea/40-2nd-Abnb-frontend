@@ -458,7 +458,7 @@ const SinceText = styled.div`
 const AirCoverBox = styled.div`
   width: 100%;
   padding-left: 5px;
-  font-size: 30px;
+  font-size: 28px;
   line-height: 50px;
   border-bottom: 1px solid #b0b0b0;
   font-weight: bold;

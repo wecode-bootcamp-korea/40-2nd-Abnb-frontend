@@ -63,7 +63,7 @@ const MainSelectArea = styled.div`
   align-items: center;
   width: 100%;
   height: 90px;
-  z-index: 3;
+  z-index: 2;
   background-color: white;
 `;
 

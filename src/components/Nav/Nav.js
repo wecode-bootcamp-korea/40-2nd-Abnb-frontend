@@ -88,7 +88,7 @@ const NavBar = styled.div`
   padding: 20px 50px;
   width: 100%;
   border-bottom: 1px solid #d3d3d3;
-  z-index: 6;
+  z-index: 3;
   background-color: white;
   box-shadow: ${props =>
     props.isButtonModal ? `0 0 0 9999px rgba(0, 0, 0, 0.4)` : `none`};

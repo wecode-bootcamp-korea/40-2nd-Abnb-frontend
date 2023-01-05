@@ -61,7 +61,7 @@ const InfoBlock = styled.div`
 
 const NavInfor = styled.div`
   position: absolute;
-  right: 90px;
+  right: 45px;
   top: 67px;
   width: 200px;
   height: 100px;

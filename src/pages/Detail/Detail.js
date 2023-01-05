@@ -6,6 +6,7 @@ import Modal from './Modal';
 import { getDateFormat } from '../../utils/format';
 import { useParams, useNavigate } from 'react-router-dom';
 import { addDays, subDays } from 'date-fns';
+
 const { kakao } = window;
 
 const Detail = () => {
@@ -49,13 +50,13 @@ const Detail = () => {
   // TODO:`http://10.58.52.227:8000/products/${listId.id}`
 
   useEffect(() => {
-    fetch('/data/Detail.json')
+    fetch(`http://10.58.52.227:8000/products/${listId.id}`)
       .then(response => response.json())
       .then(result => {
         setDetailData(result[0]);
         setLoading(false);
       });
-  }, []);
+  }, [listId]);
 
   useEffect(() => {
     if (!mapRef.current) return;
@@ -78,23 +79,22 @@ const Detail = () => {
   if (loading) return;
 
   //TODO: 백이랑 통신
-  // const onClick = () => {
-  //   fetch('http://10.58.52.227:8000/products/booking', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //       Authorization: localStorage.getItem('token'),
-  //     },
-  //     body: JSON.stringify({
-  //       productId: listId.id,
-  //       guestNumber: count,
-  //       checkIn: getDateFormat(startDate),
-  //       checkOut: endDate && getDateFormat(endDate),
-  //       totalPrice: totalPrice,
-  //     }),
-  //   });
-  // };
-
+  const onClick = () => {
+    fetch('http://10.58.52.227:8000/products/booking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: localStorage.getItem('token'),
+      },
+      body: JSON.stringify({
+        productId: listId.id,
+        guestNumber: count,
+        checkIn: getDateFormat(startDate),
+        checkOut: endDate && getDateFormat(endDate),
+        totalPrice: totalPrice,
+      }),
+    });
+  };
   const done = () => {
     alert('완료');
     navigate('/');
@@ -255,10 +255,10 @@ const Detail = () => {
                   <ButtonMin onClick={onClickIncreaseBtn}>+</ButtonMin>
                 </AdultButton>
                 <Reservation
-                // onClick={() => {
-                //   onClick();
-                //   done();
-                // }}
+                  onClick={() => {
+                    onClick();
+                    done();
+                  }}
                 >
                   예약하기
                 </Reservation>
@@ -479,16 +479,17 @@ const AirCoverBox = styled.div`
 const AirDetailText = styled.div`
   font-size: 14px;
   line-height: 20px;
-  color: #222222;
+  color: #717171;
 `;
 
 const LineTextBox = styled.div`
   width: 100%;
-  font-size: 20px;
+  font-size: 16px;
   padding-left: 5px;
   line-height: 60px;
   margin-top: 10px;
   border-bottom: 1px solid #b0b0b0;
+  color: #222222;
 `;
 
 const MapBox = styled.div`

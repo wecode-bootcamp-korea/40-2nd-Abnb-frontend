@@ -43,13 +43,15 @@
 
 
 ### 협업툴
+<div>
 <img src="https://img.shields.io/badge/Git-F05032?style=flat&logo=Git&logoColor=white"/>
 <img src="https://img.shields.io/badge/GitHub-181717?style=flat&logo=GitHub&logoColor=white"/>
 <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat&logo=Figma&logoColor=white"/>
 <img src="https://img.shields.io/badge/Trello-0052CC?style=flat&logo=Trello&logoColor=white"/>
 <img src="https://img.shields.io/badge/Slack-4A154B?style=flat&logo=Slack&logoColor=white"/>
+</div>
 
-| <img width="510" alt="스크린샷 2023-01-13 오전 9 51 18" src="https://user-images.githubusercontent.com/115875781/212212122-5eca5234-dd93-44de-a244-ba49aaa5bce9.png"> | <img width="510" alt="스크린샷 2023-01-13 오전 9 55 01" src="https://user-images.githubusercontent.com/115875781/212212347-b48a479a-4a38-476c-9c42-1566e1f67811.png">
-|:-:|:-:|
+<img width="510" alt="스크린샷 2023-01-13 오전 9 51 18" src="https://user-images.githubusercontent.com/115875781/212212122-5eca5234-dd93-44de-a244-ba49aaa5bce9.png">
+<img width="510" alt="스크린샷 2023-01-13 오전 9 55 01" src="https://user-images.githubusercontent.com/115875781/212212347-b48a479a-4a38-476c-9c42-1566e1f67811.png">
 
 

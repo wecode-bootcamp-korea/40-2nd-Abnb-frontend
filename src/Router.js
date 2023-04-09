@@ -9,6 +9,7 @@ import Test from 'components/Card/Test';
 import Footer from 'components/Footer.js/Footer';
 import Detail from 'pages/Detail/Detail';
 import Hosting from 'pages/Hosting/Hosting';
+import Community from 'pages/Community/Commuity';
 
 const Router = () => {
   return (
@@ -23,6 +24,7 @@ const Router = () => {
         <Route path="/detail" element={<Detail />} />
         <Route path="/list/:id" element={<Detail />} />
         <Route path="/hosting" element={<Hosting />} />
+        <Route path="/community" element={<Community />} />
       </Routes>
       <Footer />
     </BrowserRouter>

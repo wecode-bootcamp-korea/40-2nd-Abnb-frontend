@@ -27,7 +27,7 @@ const NaviButton = styled.button`
     box-shadow: none;
     span {
       position: relative;
-      top: -60px;
+      bottom: 60px;
       font-size: 20px;
     }
   }

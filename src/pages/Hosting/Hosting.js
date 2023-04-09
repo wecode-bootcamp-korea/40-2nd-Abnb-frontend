@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import HostInfo from './HostingStep/HostInfo';
 import HostName from './HostingStep/HostName';
 import PrivacyType from './HostingStep/PrivacyType';
@@ -9,6 +9,7 @@ import HostMap from './HostingStep/HostMap';
 import HostImage from './HostingStep/HostImage';
 import HostPrice from './HostingStep/HostPrice';
 import StepLast from './HostingStep/StepLast';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const INIT_FORM = {
   category: '한옥',
@@ -34,6 +35,7 @@ const Hosting = () => {
     setFormData({ ...formData, ...payload });
   };
 
+  const navigate = useNavigate();
   const Forms = [
     <StepOne key="stepOne" />,
     <HostCategory
@@ -121,17 +123,16 @@ const Hosting = () => {
     // }
 
     //TODO : Back단과 통신연결 예정
-    // fetch('백엔드API주소', {
-    //   method: 'POST',
-    //   headers: {
-    //     'Content-Type': 'multipart/form-data',
-    //   },
-    //   body: newFormData,
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     alert('호스트님 환영합니다! 숙소 등록이 완료되었습니다.');
-    //   });
+    fetch('http://10.58.52.154:8000/products/host', {
+      method: 'POST',
+
+      body: newFormData,
+    })
+      .then(res => res.json())
+      .then(data => {
+        alert('호스트님 환영합니다! 숙소 등록이 완료되었습니다.');
+        Navigate('/');
+      });
   };
 
   return (
@@ -149,7 +150,16 @@ const Hosting = () => {
           <StepButton>
             <PrevButton onClick={onClickPrevPage}>뒤로</PrevButton>
             {currentIdx === Forms.length - 1 ? (
-              <NextButton onClick={onClickDone}>완료</NextButton>
+              <NextButton
+                onClick={() => {
+                  onClickDone();
+
+                  // navigate('/');
+                  // alert(`호스트님 환영합니다! 숙소 등록이 완료되었습니다.`);
+                }}
+              >
+                완료
+              </NextButton>
             ) : (
               <NextButton onClick={onClickNextPage}>다음</NextButton>
             )}

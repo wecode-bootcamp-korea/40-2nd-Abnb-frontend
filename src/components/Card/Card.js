@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { posCenterY } from 'utils/variables';
 
 const Card = props => {
-  const { id, title, price, date, address, images, ...other } = props;
+  const { id, title, price, date, address, image_url, ...other } = props;
 
   const [currentIdx, setCurrentIdx] = useState(0);
-  const TOTAL_SLIDE = images.length - 1;
+  const TOTAL_SLIDE = image_url.length - 1;
   const REACH_MAX = currentIdx !== 0;
   const REACH_MIN = currentIdx < TOTAL_SLIDE;
 
@@ -34,7 +34,7 @@ const Card = props => {
           <CardCarouselBox>
             <LinkBox to={`/list/${id}`}>
               <CarouselBox currentIdx={currentIdx}>
-                {images.map(item => (
+                {image_url.map(item => (
                   <CardImageBox key={item.id}>
                     <CardImage alt="숙소 이미지" src={item} />
                   </CardImageBox>

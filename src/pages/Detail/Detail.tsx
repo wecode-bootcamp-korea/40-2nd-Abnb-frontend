@@ -9,6 +9,20 @@ import { addDays, subDays } from 'date-fns';
 
 const { kakao } = window;
 
+interface Calendar {
+  types: Calendar;
+}
+
+interface types {
+  name: string;
+  maximum_guest: number;
+  bedroom: number;
+  bed: number;
+  bathroom: string;
+  product4: string;
+  product5: string;
+}
+
 const Detail = () => {
   const listId = useParams();
   const date = new Date();
@@ -24,7 +38,7 @@ const Detail = () => {
 
   const [loading, setLoading] = useState(true);
   const [count, setCount] = useState(1);
-  const [detailData, setDetailData] = useState({});
+  const [detailData, setDetailData] = useState<Calendar>({});
 
   const navigate = useNavigate();
 
@@ -50,7 +64,7 @@ const Detail = () => {
   // TODO:`http://10.58.52.227:8000/products/${listId.id}`
 
   useEffect(() => {
-    fetch(`http://10.58.52.227:8000/products/${listId.id}`)
+    fetch('./data/detail.json')
       .then(response => response.json())
       .then(result => {
         setDetailData(result[0]);

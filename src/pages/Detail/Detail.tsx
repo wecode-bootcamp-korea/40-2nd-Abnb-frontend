@@ -21,6 +21,7 @@ interface types {
   bathroom: string;
   product4: string;
   product5: string;
+  price: number;
 }
 
 const Detail = () => {
@@ -44,7 +45,7 @@ const Detail = () => {
 
   const realEnd = endDate < startDate ? startDate : endDate;
   const getDay = (realEnd - startDate) / (1000 * 60 * 60 * 24) + 1;
-  const totalPrice = detailData.price * getDay;
+  const totalPrice = detailData.(price : Number) * getDay;
   const imageSrc =
     'https://img.pikbest.com/58pic/27/61/87/47U58PICkiscVepeaMwW0_PIC2018.png!w700wp';
   const euroPrice = totalPrice.toLocaleString('ko-KR', {
